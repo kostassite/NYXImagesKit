@@ -391,6 +391,22 @@ static int16_t __s_unsharpen_kernel_3x3[9] = {
 	return gamma;
 }
 
+-(UIImage*)saturateWithValue:(CGFloat)value{
+    UIImage *sourceImage = self;
+    
+    CIContext *context = [CIContext contextWithOptions:nil];
+    
+    CIFilter *filter= [CIFilter filterWithName:@"CIColorControls"];
+    
+    CIImage *inputImage = [[CIImage alloc] initWithImage:sourceImage];
+    
+    [filter setValue:inputImage forKey:@"inputImage"];
+    
+    [filter setValue:[NSNumber numberWithFloat:value] forKey:@"inputSaturation"];
+    
+    return [UIImage imageWithCGImage:[context createCGImage:filter.outputImage fromRect:filter.outputImage.extent]];
+}
+
 -(UIImage*)grayscale
 {
 	/* const UInt8 luminance = (red * 0.2126) + (green * 0.7152) + (blue * 0.0722); // Good luminance value */

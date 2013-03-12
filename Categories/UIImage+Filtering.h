@@ -23,6 +23,8 @@
 
 -(UIImage*)gammaCorrectionWithValue:(float)value;
 
+-(UIImage*)saturateWithValue:(CGFloat)value;
+
 -(UIImage*)grayscale;
 
 -(UIImage*)invert;

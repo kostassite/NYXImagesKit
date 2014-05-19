@@ -74,7 +74,7 @@ static int16_t __s_unsharpen_kernel_3x3[9] = {
 	/// Create an ARGB bitmap context
 	const size_t width = (size_t)self.size.width;
 	const size_t height = (size_t)self.size.height;
-	CGContextRef bmContext = NYXCreateARGBBitmapContext(width, height, width * kNyxNumberOfComponentsPerARBGPixel);
+	CGContextRef bmContext = NYXCreateARGBBitmapContext(width, height, width * kNyxNumberOfComponentsPerARBGPixel, NYXImageHasAlpha(self.CGImage));
 	if (!bmContext) 
 		return nil;
 
@@ -128,7 +128,7 @@ static int16_t __s_unsharpen_kernel_3x3[9] = {
 	/// Create an ARGB bitmap context
 	const size_t width = (size_t)self.size.width;
 	const size_t height = (size_t)self.size.height;
-	CGContextRef bmContext = NYXCreateARGBBitmapContext(width, height, width * kNyxNumberOfComponentsPerARBGPixel);
+	CGContextRef bmContext = NYXCreateARGBBitmapContext(width, height, width * kNyxNumberOfComponentsPerARBGPixel, NYXImageHasAlpha(self.CGImage));
 	if (!bmContext) 
 		return nil;
 
@@ -195,7 +195,7 @@ static int16_t __s_unsharpen_kernel_3x3[9] = {
 	const size_t width = (size_t)self.size.width;
 	const size_t height = (size_t)self.size.height;
 	const size_t bytesPerRow = width * kNyxNumberOfComponentsPerARBGPixel;
-	CGContextRef bmContext = NYXCreateARGBBitmapContext(width, height, bytesPerRow);
+	CGContextRef bmContext = NYXCreateARGBBitmapContext(width, height, bytesPerRow, NYXImageHasAlpha(self.CGImage));
 	if (!bmContext) 
 		return nil;
 
@@ -283,7 +283,7 @@ static int16_t __s_unsharpen_kernel_3x3[9] = {
 	const size_t width = (size_t)self.size.width;
 	const size_t height = (size_t)self.size.height;
 	const size_t bytesPerRow = width * kNyxNumberOfComponentsPerARBGPixel;
-	CGContextRef bmContext = NYXCreateARGBBitmapContext(width, height, bytesPerRow);
+	CGContextRef bmContext = NYXCreateARGBBitmapContext(width, height, bytesPerRow, NYXImageHasAlpha(self.CGImage));
 	if (!bmContext) 
 		return nil;
 
@@ -302,7 +302,7 @@ static int16_t __s_unsharpen_kernel_3x3[9] = {
 	void* outt = malloc(n);
 	vImage_Buffer src = {data, height, width, bytesPerRow};
 	vImage_Buffer dest = {outt, height, width, bytesPerRow};
-	vImageConvolveWithBias_ARGB8888(&src, &dest, NULL, 0, 0, __s_emboss_kernel_3x3, 3, 3, 1/*divisor*/, bias, NULL, kvImageCopyInPlace);
+	vImageConvolveWithBias_ARGB8888(&src, &dest, NULL, 0, 0, __s_emboss_kernel_3x3, 3, 3, 1/*divisor*/, (int32_t)bias, NULL, kvImageCopyInPlace);
 	
 	memcpy(data, outt, n);
 	
@@ -327,7 +327,7 @@ static int16_t __s_unsharpen_kernel_3x3[9] = {
 	const size_t bytesPerRow = width * kNyxNumberOfComponentsPerARBGPixel;
 
 	/// Create an ARGB bitmap context
-	CGContextRef bmContext = NYXCreateARGBBitmapContext(width, height, bytesPerRow);
+	CGContextRef bmContext = NYXCreateARGBBitmapContext(width, height, bytesPerRow, NYXImageHasAlpha(self.CGImage));
 	if (!bmContext) 
 		return nil;
 
@@ -417,7 +417,7 @@ static int16_t __s_unsharpen_kernel_3x3[9] = {
     CGRect imageRect = CGRectMake(0, 0, self.size.width, self.size.height);
     
 	CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceGray();
-	CGContextRef bmContext = CGBitmapContextCreate(NULL, width, height, 8/*Bits per component*/, width * kNyxNumberOfComponentsPerGreyPixel, colorSpace, kCGImageAlphaNone);
+	CGContextRef bmContext = CGBitmapContextCreate(NULL, width, height, 8/*Bits per component*/, width * kNyxNumberOfComponentsPerGreyPixel, colorSpace, (CGBitmapInfo)kCGImageAlphaNone);
 	CGColorSpaceRelease(colorSpace);
 	if (!bmContext)
 		return nil;
@@ -445,7 +445,7 @@ static int16_t __s_unsharpen_kernel_3x3[9] = {
 	/// Create an ARGB bitmap context
 	const size_t width = (size_t)self.size.width;
 	const size_t height = (size_t)self.size.height;
-	CGContextRef bmContext = NYXCreateARGBBitmapContext(width, height, width * kNyxNumberOfComponentsPerARBGPixel);
+	CGContextRef bmContext = NYXCreateARGBBitmapContext(width, height, width * kNyxNumberOfComponentsPerARBGPixel, NYXImageHasAlpha(self.CGImage));
 	if (!bmContext) 
 		return nil;
 
@@ -505,7 +505,7 @@ static int16_t __s_unsharpen_kernel_3x3[9] = {
 	/// Create an ARGB bitmap context
 	const size_t width = (size_t)self.size.width;
 	const size_t height = (size_t)self.size.height;
-	CGContextRef bmContext = NYXCreateARGBBitmapContext(width, height, width * kNyxNumberOfComponentsPerARBGPixel);
+	CGContextRef bmContext = NYXCreateARGBBitmapContext(width, height, width * kNyxNumberOfComponentsPerARBGPixel, YES);
 	if (!bmContext) 
 		return nil;
 
@@ -542,7 +542,7 @@ static int16_t __s_unsharpen_kernel_3x3[9] = {
 		/// Create an ARGB bitmap context
 		const size_t width = (size_t)self.size.width;
 		const size_t height = (size_t)self.size.height;
-		CGContextRef bmContext = NYXCreateARGBBitmapContext(width, height, width * kNyxNumberOfComponentsPerARBGPixel);
+		CGContextRef bmContext = NYXCreateARGBBitmapContext(width, height, width * kNyxNumberOfComponentsPerARBGPixel, NYXImageHasAlpha(self.CGImage));
 		if (!bmContext) 
 			return nil;
 
@@ -621,7 +621,7 @@ static int16_t __s_unsharpen_kernel_3x3[9] = {
 	const size_t width = (size_t)self.size.width;
 	const size_t height = (size_t)self.size.height;
 	const size_t bytesPerRow = width * kNyxNumberOfComponentsPerARBGPixel;
-	CGContextRef bmContext = NYXCreateARGBBitmapContext(width, height, bytesPerRow);
+	CGContextRef bmContext = NYXCreateARGBBitmapContext(width, height, bytesPerRow, NYXImageHasAlpha(self.CGImage));
 	if (!bmContext) 
 		return nil;
 
@@ -640,7 +640,7 @@ static int16_t __s_unsharpen_kernel_3x3[9] = {
 	void* outt = malloc(n);
 	vImage_Buffer src = {data, height, width, bytesPerRow};
 	vImage_Buffer dest = {outt, height, width, bytesPerRow};
-	vImageConvolveWithBias_ARGB8888(&src, &dest, NULL, 0, 0, __s_sharpen_kernel_3x3, 3, 3, 1/*divisor*/, bias, NULL, kvImageCopyInPlace);
+	vImageConvolveWithBias_ARGB8888(&src, &dest, NULL, 0, 0, __s_sharpen_kernel_3x3, 3, 3, 1/*divisor*/, (int32_t)bias, NULL, kvImageCopyInPlace);
 	
 	memcpy(data, outt, n);
 	
@@ -662,7 +662,7 @@ static int16_t __s_unsharpen_kernel_3x3[9] = {
 	const size_t width = (size_t)self.size.width;
 	const size_t height = (size_t)self.size.height;
 	const size_t bytesPerRow = width * kNyxNumberOfComponentsPerARBGPixel;
-	CGContextRef bmContext = NYXCreateARGBBitmapContext(width, height, bytesPerRow);
+	CGContextRef bmContext = NYXCreateARGBBitmapContext(width, height, bytesPerRow, NYXImageHasAlpha(self.CGImage));
 	if (!bmContext) 
 		return nil;
 
@@ -681,7 +681,7 @@ static int16_t __s_unsharpen_kernel_3x3[9] = {
 	void* outt = malloc(n);
 	vImage_Buffer src = {data, height, width, bytesPerRow};
 	vImage_Buffer dest = {outt, height, width, bytesPerRow};
-	vImageConvolveWithBias_ARGB8888(&src, &dest, NULL, 0, 0, __s_unsharpen_kernel_3x3, 3, 3, 9/*divisor*/, bias, NULL, kvImageCopyInPlace);
+	vImageConvolveWithBias_ARGB8888(&src, &dest, NULL, 0, 0, __s_unsharpen_kernel_3x3, 3, 3, 9/*divisor*/, (int32_t)bias, NULL, kvImageCopyInPlace);
 	
 	memcpy(data, outt, n);
 	
